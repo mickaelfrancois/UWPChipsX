@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <chipsControl:Chips x:Name="SampleChips" Margin="20" />
+        <chipsControl:Chips x:Name="SampleChips" Margin="20"  AllowNewChips="False"/>
 
     </Grid>
 </Page>

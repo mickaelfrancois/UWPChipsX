@@ -1,6 +1,7 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace ChipsControl
 {
@@ -15,24 +16,19 @@ namespace ChipsControl
             DefaultStyleKey = typeof(Chip);
         }
 
+        public event EventHandler<Chip> ChipDelete;
+
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             _button = GetTemplateChild(CanceButtonName) as Button;
             if (_button == null)
                 return;
-            _button.PointerEntered += OnPointerEntered;
-            _button.PointerExited += OnPointerExited;
-        }
-
-        private void OnPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            
-        }
-
-        private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            
+            _button.PointerEntered += (o, e) =>
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+            _button.PointerExited += (o, e) =>
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+            _button.Click += (o, e) => ChipDelete?.Invoke(this, this);
         }
     }
 }
