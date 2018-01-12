@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DeanChalk.UWP.ChipsControl</id>
+    <version>1.0.0</version>
+    <title>UWP Chips Control</title>
+    <authors>Dean Chalk</authors>
+    <owners>Dean Chalk</owners>
+    <licenseUrl>https://github.com/deanchalk/UWPChipsControl/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/deanchalk/UWPChipsControl</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A control library that can be added to any UWP project. There is a single control that allows the developer to add a chips functionality into their application. </description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>UWP UAP XAML Control Chips</tags>
+  </metadata>
+</package>
