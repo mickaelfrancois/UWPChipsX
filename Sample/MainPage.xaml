@@ -12,14 +12,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <chipsControl:Chips AvailableChips="{x:Bind AvailableOptions}" SelectedChips="{x:Bind SelectedOptions, Mode=TwoWay}" Margin="20" SelectorStyle="{x:Bind SelectorStyle, Mode=OneWay}"/>
 
         <StackPanel Grid.Row="1" Margin="20,0">
-            <TextBlock Text="Chip selector style"/>
+            <TextBlock Text="Chip selector style" FontWeight="Bold"/>
             <RadioButton x:Name="AutoSuggestRadio" Content="Auto-Suggest" Checked="OnAutoSuggestChecked" IsChecked="True"/>
             <RadioButton x:Name="SelectorRadio" Content="Selector" Checked="OnSelectorChecked"/>
         </StackPanel>
+
+        <TextBlock Margin="20,10,0,0" Grid.Row="2" Text="Selected chips" FontWeight="Bold"/>
+        <ItemsControl Margin="20,0,0,0" Grid.Row="3" ItemsSource="{x:Bind SelectedOptions, Mode=OneWay}"/>
 
     </Grid>
 </Page>
