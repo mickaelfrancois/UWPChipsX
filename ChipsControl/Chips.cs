@@ -16,46 +16,17 @@ namespace ChipsControl
         private const string SelectionsControlName = "PART_SelectionList";
 
         private ItemsControl _itemsControl;
-        private AutoSuggestBox _suggestBox;
         private Selector _selectionsList;
+        private AutoSuggestBox _suggestBox;
 
         public Chips()
         {
             DefaultStyleKey = typeof(Chips);
         }
 
-        public bool AllowNewChips
-        {
-            get => (bool)GetValue(AllowNewChipsProperty);
-            set => SetValue(AllowNewChipsProperty, value);
-        }
-
-        public static DependencyProperty AllowNewChipsProperty { get; } =
-            DependencyProperty.Register("AllowNewChips", typeof(bool), typeof(Chips), new PropertyMetadata(true, OnAllowNewChipsPropertyChanged));
-
-        private static void OnAllowNewChipsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(d is Chips chips))
-                return;
-            chips.RecreateGrid();
-        }
-
-        public bool CanCreateChips
-        {
-            get => (bool)GetValue(CanCreateChipsProperty);
-            set => SetValue(CanCreateChipsProperty, value);
-        }
-
-
-        public static DependencyProperty CanCreateChipsProperty { get; } =
-            DependencyProperty.Register("CanCreateChips", typeof(bool), typeof(Chips), new PropertyMetadata(true));
-
-
-        public IEnumerable<string> SelectedChips
-        {
-            get => (IEnumerable<string>)GetValue(SelectedChipsProperty);
-            set => SetValue(SelectedChipsProperty, value);
-        }
+        public static DependencyProperty SelectorStyleProperty { get; } =
+            DependencyProperty.Register("SelectorStyle", typeof(ChipsSelectorStyle), typeof(Chips),
+                new PropertyMetadata(ChipsSelectorStyle.AutoSuggest, OnSelectorStylePropertyChanged));
 
         public static DependencyProperty SelectedChipsProperty { get; } =
             DependencyProperty.Register("SelectedChips", typeof(IEnumerable<string>), typeof(Chips),
@@ -67,10 +38,35 @@ namespace ChipsControl
                 new PropertyMetadata(Enumerable.Empty<string>(), OnAvailableChipsPropertyChanged));
 
 
+        public ChipsSelectorStyle SelectorStyle
+        {
+            get => (ChipsSelectorStyle) GetValue(SelectorStyleProperty);
+            set => SetValue(SelectorStyleProperty, value);
+        }
+
+        public IEnumerable<string> SelectedChips
+        {
+            get => (IEnumerable<string>)GetValue(SelectedChipsProperty);
+            set => SetValue(SelectedChipsProperty, value);
+        }
+
         public IEnumerable<string> AvailableChips
         {
             get => (IEnumerable<string>)GetValue(AvailableChipsProperty);
             set => SetValue(AvailableChipsProperty, value);
+        }
+
+        private static void OnSelectorStylePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is Chips chips))
+                return;
+            if (chips._selectionsList == null || chips._suggestBox == null)
+                return;
+            if (!(e.NewValue is ChipsSelectorStyle))
+                return;
+            var style = (ChipsSelectorStyle) e.NewValue;
+            chips._suggestBox.Visibility = style == ChipsSelectorStyle.AutoSuggest ? Visibility.Visible : Visibility.Collapsed;
+            chips._selectionsList.Visibility = style == ChipsSelectorStyle.Selector ? Visibility.Visible : Visibility.Collapsed;
         }
 
         protected override void OnApplyTemplate()
@@ -81,15 +77,21 @@ namespace ChipsControl
             _selectionsList = GetTemplateChild(SelectionsControlName) as Selector;
             if (_itemsControl == null || _suggestBox == null || _selectionsList == null)
                 return;
+            _suggestBox.Visibility = SelectorStyle == ChipsSelectorStyle.AutoSuggest
+                ? Visibility.Visible
+                : Visibility.Collapsed;
             _suggestBox.TextChanged += OnSuggestBoxTextChanged;
             _suggestBox.QuerySubmitted += OnSuggestBoxQuerySubmitted;
             _selectionsList.SelectionChanged += OnSelectedItemChanged;
+            _selectionsList.Visibility = SelectorStyle == ChipsSelectorStyle.Selector
+                ? Visibility.Visible
+                : Visibility.Collapsed;
             RecreateGrid();
         }
 
         private void OnSelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
-            var newItem = e.AddedItems.First() as string;
+            var newItem = e.AddedItems?.FirstOrDefault() as string;
             if (string.IsNullOrWhiteSpace(newItem) || SelectedChips.Contains(newItem))
                 return;
             var chip = new Chip
@@ -99,7 +101,7 @@ namespace ChipsControl
             chip.ChipDelete += OnChipDelete;
             _itemsControl.Items?.Insert(1, chip);
             chip.ChipDelete += OnChipDelete;
-            SelectedChips = new[] { newItem }.Concat(SelectedChips);
+            SelectedChips = new[] {newItem}.Concat(SelectedChips);
             _selectionsList.ItemsSource = AvailableChips.Where(c => !SelectedChips.Contains(c));
         }
 
@@ -114,9 +116,9 @@ namespace ChipsControl
                 Content = args.QueryText
             };
             chip.ChipDelete += OnChipDelete;
-            _itemsControl.Items?.Insert(1, chip);
+            _itemsControl.Items?.Insert(2, chip);
             chip.ChipDelete += OnChipDelete;
-            SelectedChips = new[] { args.QueryText }.Concat(SelectedChips);
+            SelectedChips = new[] {args.QueryText}.Concat(SelectedChips);
             sender.Text = string.Empty;
         }
 
@@ -125,6 +127,7 @@ namespace ChipsControl
             _itemsControl.Items?.Remove(e);
             e.ChipDelete -= OnChipDelete;
             SelectedChips = SelectedChips.Where(c => c != e.Content as string);
+            RecreateGrid();
         }
 
         private void OnSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -138,8 +141,6 @@ namespace ChipsControl
         {
             if (_itemsControl == null || SelectedChips == null || _suggestBox == null || _selectionsList == null)
                 return;
-            _suggestBox.Visibility = AllowNewChips ? Visibility.Visible : Visibility.Collapsed;
-            _selectionsList.Visibility = AllowNewChips ? Visibility.Collapsed : Visibility.Visible;
             var chips = _itemsControl.Items?.OfType<Chip>().ToList() ?? new List<Chip>();
             foreach (var chip in chips)
                 _itemsControl.Items?.Remove(chip);
@@ -152,8 +153,9 @@ namespace ChipsControl
                 _itemsControl.Items?.Add(chip);
                 chip.ChipDelete += OnChipDelete;
             }
-            _suggestBox.ItemsSource = AvailableChips;
-            _selectionsList.ItemsSource = AvailableChips;
+
+            _suggestBox.ItemsSource = AvailableChips.Where(c => !SelectedChips.Contains(c));
+            _selectionsList.ItemsSource = AvailableChips.Where(c => !SelectedChips.Contains(c));
         }
 
         private static void OnSelectedChipsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -167,5 +169,11 @@ namespace ChipsControl
             var chips = d as Chips;
             chips?.RecreateGrid();
         }
+    }
+
+    public enum ChipsSelectorStyle
+    {
+        AutoSuggest,
+        Selector
     }
 }

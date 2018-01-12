@@ -333,6 +333,12 @@
                                     <local:WrapPanel Orientation="Horizontal" HorizontalSpacing="10" VerticalSpacing="5"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="Control">
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
                             <ItemsControl.Items>
                                 <AutoSuggestBox
                                     Style="{StaticResource AutoSuggestBoxStyle}"

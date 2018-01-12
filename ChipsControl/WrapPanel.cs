@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -61,7 +62,7 @@ namespace ChipsControl
             var spacingMeasure = new UvMeasure(Orientation, HorizontalSpacing, VerticalSpacing);
             var lineMeasure = UvMeasure.Zero;
 
-            foreach (var child in Children)
+            foreach (var child in Children.Where(c => c.Visibility == Visibility.Visible))
             {
                 child.Measure(availableSize);
 
@@ -107,7 +108,7 @@ namespace ChipsControl
             var position = UvMeasure.Zero;
 
             double currentV = 0;
-            foreach (var child in Children)
+            foreach (var child in Children.Where(c => c.Visibility == Visibility.Visible))
             {
                 var desiredMeasure = new UvMeasure(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
                 if (desiredMeasure.U + position.U > parentMeasure.U)

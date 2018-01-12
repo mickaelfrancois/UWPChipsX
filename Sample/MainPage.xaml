@@ -6,11 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:chipsControl="using:ChipsControl"
-
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <chipsControl:Chips x:Name="SampleChips" Margin="20"  AllowNewChips="False"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <chipsControl:Chips AvailableChips="{x:Bind AvailableOptions}" SelectedChips="{x:Bind SelectedOptions, Mode=TwoWay}" Margin="20" SelectorStyle="{x:Bind SelectorStyle, Mode=OneWay}"/>
+
+        <StackPanel Grid.Row="1" Margin="20,0">
+            <TextBlock Text="Chip selector style"/>
+            <RadioButton x:Name="AutoSuggestRadio" Content="Auto-Suggest" Checked="OnAutoSuggestChecked" IsChecked="True"/>
+            <RadioButton x:Name="SelectorRadio" Content="Selector" Checked="OnSelectorChecked"/>
+        </StackPanel>
 
     </Grid>
 </Page>
