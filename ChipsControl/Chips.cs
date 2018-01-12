@@ -82,11 +82,18 @@ namespace ChipsControl
                 : Visibility.Collapsed;
             _suggestBox.TextChanged += OnSuggestBoxTextChanged;
             _suggestBox.QuerySubmitted += OnSuggestBoxQuerySubmitted;
+            _suggestBox.GotFocus += OnGotFocus;
             _selectionsList.SelectionChanged += OnSelectedItemChanged;
             _selectionsList.Visibility = SelectorStyle == ChipsSelectorStyle.Selector
                 ? Visibility.Visible
                 : Visibility.Collapsed;
             RecreateGrid();
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            _suggestBox.Text = string.Empty;
+            _suggestBox.IsSuggestionListOpen = true;
         }
 
         private void OnSelectedItemChanged(object sender, SelectionChangedEventArgs e)
@@ -99,7 +106,7 @@ namespace ChipsControl
                 Content = newItem
             };
             chip.ChipDelete += OnChipDelete;
-            _itemsControl.Items?.Insert(1, chip);
+            _itemsControl.Items?.Insert(2, chip);
             chip.ChipDelete += OnChipDelete;
             SelectedChips = new[] {newItem}.Concat(SelectedChips);
             _selectionsList.ItemsSource = AvailableChips.Where(c => !SelectedChips.Contains(c));
@@ -119,7 +126,6 @@ namespace ChipsControl
             _itemsControl.Items?.Insert(2, chip);
             chip.ChipDelete += OnChipDelete;
             SelectedChips = new[] {args.QueryText}.Concat(SelectedChips);
-            sender.Text = string.Empty;
         }
 
         private void OnChipDelete(object sender, Chip e)

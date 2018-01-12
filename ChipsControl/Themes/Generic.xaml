@@ -343,6 +343,7 @@
                                 <AutoSuggestBox
                                     Style="{StaticResource AutoSuggestBoxStyle}"
                                     x:Name="PART_SuggestBox"
+                                    UpdateTextOnSelect="True"
                                     QueryIcon="Find"
                                     Margin="0"  
                                     Padding="0"
