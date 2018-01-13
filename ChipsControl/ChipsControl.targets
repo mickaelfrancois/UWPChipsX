@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ChipsControl-Platform Condition="'$(Platform)' == 'Win32'">x86</ChipsControl-Platform>
+        <ChipsControl-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</ChipsControl-Platform>
+    </PropertyGroup>
+    <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\ChipsControl.winmd">
+            <Implementation>ChipsControl.winmd</Implementation>
+        </Reference>
+    </ItemGroup>
+</Project>
