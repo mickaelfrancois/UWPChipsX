@@ -1,8 +1,6 @@
 # UWP Chips Control
 Chips Control for UWP
 
-
-
-![]({{site.baseurl}}/docs/images/screenshot.gif)
+![Image of ChipControl in app](https://github.com/deanchalk/UWPChipsControl/blob/master/docs/images/screenshot.gif)
 
 
