@@ -7,7 +7,7 @@
     <ProjectGuid>{2E208C10-BE2F-449E-A500-4992762DF3FB}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ChipsControl</RootNamespace>
+    <RootNamespace>DeanChalk.UWP.ChipsControl</RootNamespace>
     <AssemblyName>ChipsControl</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>

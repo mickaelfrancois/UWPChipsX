@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using ChipsControl;
+using DeanChalk.UWP.ChipsControl;
 
 namespace Sample
 {
