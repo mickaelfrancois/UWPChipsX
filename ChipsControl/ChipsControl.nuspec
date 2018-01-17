@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DeanChalk.UWP.ChipsControl</id>
-    <version>1.0.4</version>
+    <version>1.0.6</version>
     <title>UWP Chips Control</title>
     <authors>Dean Chalk</authors>
     <owners>Dean Chalk</owners>
@@ -18,8 +18,8 @@
      <file src="bin\Release\DeanChalk.UWP.ChipsControl.winmd" target="lib\uap10.0"/>
      <file src="bin\Release\DeanChalk.UWP.ChipsControl.pri" target="lib\uap10.0"/>
      <file src="bin\Release\DeanChalk.UWP.ChipsControl.pdb" target="lib\uap10.0"/>
-     <file src="bin\Release\ChipsControl.xr.xml" target="lib\uap10.0\ChipsControl"/>
-     <file src="bin\Release\Themes\Generic.xbf" target="lib\uap10.0\ChipsControl\Themes"/>
+     <file src="bin\Release\DeanChalk.UWP.ChipsControl.xr.xml" target="lib\uap10.0\DeanChalk.UWP.ChipsControl"/>
+     <file src="bin\Release\Themes\Generic.xbf" target="lib\uap10.0\DeanChalk.UWP.ChipsControl\Themes"/>
      <file src="Themes\Generic.xaml" target="lib\uap10.0\Themes"/>
      <file src="ChipsControl.targets" target="build\uap10.0"/>
   </files>

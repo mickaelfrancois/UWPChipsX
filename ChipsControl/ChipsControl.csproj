@@ -8,7 +8,7 @@
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DeanChalk.UWP.ChipsControl</RootNamespace>
-    <AssemblyName>ChipsControl</AssemblyName>
+    <AssemblyName>DeanChalk.UWP.ChipsControl</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
