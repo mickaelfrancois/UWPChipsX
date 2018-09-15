@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using DeanChalk.UWP.ChipsControl;
+using Yazdipour.UWP.Chips;
 
 namespace Sample
 {
@@ -18,11 +18,11 @@ namespace Sample
             InitializeComponent();
             AvailableOptions = new[]
             {
-                "England","France","Spain","Germany",
+                "فارسی","France","Spain","Germany",
                 "Italy","Greece","Denmark","Netherlands",
                 "Ireland","Sweden","Switzerland"
             };
-            SelectedOptions = new[] {"England","Spain","Sweden"};
+            SelectedOptions = new[] { "فارسی", "Spain","Sweden"};
         }
 
         public IEnumerable<string> AvailableOptions

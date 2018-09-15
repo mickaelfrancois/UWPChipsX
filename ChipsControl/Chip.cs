@@ -3,7 +3,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace DeanChalk.UWP.ChipsControl
+namespace Yazdipour.UWP.Chips
 {
     [TemplatePart(Name = CanceButtonName, Type = typeof(Button))]
     public sealed class Chip : ContentControl

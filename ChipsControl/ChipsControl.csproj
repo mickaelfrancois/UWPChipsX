@@ -7,8 +7,8 @@
     <ProjectGuid>{2E208C10-BE2F-449E-A500-4992762DF3FB}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DeanChalk.UWP.ChipsControl</RootNamespace>
-    <AssemblyName>DeanChalk.UWP.ChipsControl</AssemblyName>
+    <RootNamespace>Yazdipour.UWP.Chips</RootNamespace>
+    <AssemblyName>Yazdipour.UWP.Chips</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>

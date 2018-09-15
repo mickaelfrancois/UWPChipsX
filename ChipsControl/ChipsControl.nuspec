@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>DeanChalk.UWP.ChipsControl</id>
-    <version>1.0.6</version>
+    <id>Yazdipour.UWP.Chips</id>
+    <version>1.0.0</version>
     <title>UWP Chips Control</title>
-    <authors>Dean Chalk</authors>
-    <owners>Dean Chalk</owners>
-    <licenseUrl>https://github.com/deanchalk/UWPChipsControl/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/deanchalk/UWPChipsControl</projectUrl>
+    <authors>Shahriar Yazdipour</authors>
+    <owners>Shahriar Yazdipour</owners>
+    <licenseUrl>https://github.com/yazdipour/UWPChips/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/yazdipour/UWPChips</projectUrl>
+    <iconUrl>https://github.com/yazdipour/UWPChips/raw/master/docs/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A control library that can be added to any UWP project. There is a single control that allows the developer to add a chips functionality to their UWP application. </description>
     <releaseNotes>Initial release</releaseNotes>
@@ -15,12 +16,12 @@
     <tags>UWP UAP XAML Control Chips</tags>
   </metadata>
   <files>
-     <file src="bin\Release\DeanChalk.UWP.ChipsControl.winmd" target="lib\uap10.0"/>
-     <file src="bin\Release\DeanChalk.UWP.ChipsControl.pri" target="lib\uap10.0"/>
-     <file src="bin\Release\DeanChalk.UWP.ChipsControl.pdb" target="lib\uap10.0"/>
-     <file src="bin\Release\DeanChalk.UWP.ChipsControl.xr.xml" target="lib\uap10.0\DeanChalk.UWP.ChipsControl"/>
-     <file src="bin\Release\Themes\Generic.xbf" target="lib\uap10.0\DeanChalk.UWP.ChipsControl\Themes"/>
-     <file src="Themes\Generic.xaml" target="lib\uap10.0\Themes"/>
-     <file src="ChipsControl.targets" target="build\uap10.0"/>
+    <file src="bin\Release\Yazdipour.UWP.Chips.pri" target="lib\uap10.0"/>
+    <file src="bin\Release\Yazdipour.UWP.Chips.xr.xml" target="lib\uap10.0\Yazdipour.UWP.Chips"/>
+    <file src="bin\Release\Yazdipour.UWP.Chips.winmd" target="lib\uap10.0"/>
+    <file src="bin\Release\Yazdipour.UWP.Chips.pdb" target="lib\uap10.0"/>
+    <file src="bin\Release\Themes\Generic.xbf" target="lib\uap10.0\Yazdipour.UWP.Chips\Themes"/>
+    <file src="Themes\Generic.xaml" target="lib\uap10.0\Themes"/>
+    <file src="ChipsControl.targets" target="build\uap10.0"/>
   </files>
 </package>

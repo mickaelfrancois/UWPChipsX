@@ -1,5 +1,16 @@
 # UWP Chips Control
-Chips Control for UWP
+
+![ChipControl](./docs/images/screenshot.png)
+
+
+### Forked from: https://github.com/deanchalk/UWPChipsControl
+
+Changed:
+* Thicker Chips border
+* Set CornerRadius 
+* Set Calibri FontFamily
+
+---
 
 ## How to use in a UWP app
 If you want to include this control in an app, you can look at the sample project for guidance, but essentially the control has the following bindable properties:
@@ -27,9 +38,6 @@ This property is an enumerable of string values (`IEnumerable<string>`) that rep
 ### SelectedChips (`IEnumerable<string>`) 
 
 This property is an enumerable of string values (`IEnumerable<string>`) that represents the selected values (chips) from the control
-  
 
 
-![Image of ChipControl in app](https://github.com/deanchalk/UWPChipsControl/blob/master/docs/images/screenshot.gif)
-
-
+![Image of ChipControl in app](./docs/images/screenshot.gif)

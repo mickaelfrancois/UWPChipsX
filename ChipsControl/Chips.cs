@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace DeanChalk.UWP.ChipsControl
+namespace Yazdipour.UWP.Chips
 {
     [TemplatePart(Name = ItemsControlName, Type = typeof(ItemsControl))]
     [TemplatePart(Name = SuggestControlName, Type = typeof(AutoSuggestBox))]
