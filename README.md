@@ -1,15 +1,17 @@
 # UWP Chips Control
 
 ![ChipControl](./docs/images/screenshot.png)
+![ChipControl-dark](./docs/images/screenshot-dark.png)
 
 
-### Forked from: https://github.com/deanchalk/UWPChipsControl
-
-Changed:
-* Thicker Chips border
+### Changes:
+* No Border
+* Set Proper BgColor
+* Set Proper Paddings
 * Set CornerRadius 
 * Set Calibri FontFamily
 
+Forked from: https://github.com/deanchalk/UWPChipsControl
 ---
 
 ## How to use in a UWP app
