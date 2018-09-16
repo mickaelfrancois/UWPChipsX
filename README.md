@@ -1,21 +1,20 @@
 # UWP Chips Control
 
+[![NuGet](https://img.shields.io/nuget/v/Yazdipour.UWP.Chips.svg?style=plastic)](https://www.nuget.org/packages/Yazdipour.UWP.Chips)
+
 ![ChipControl](./docs/images/screenshot.png)
 ![ChipControl-dark](./docs/images/screenshot-dark.png)
 
-
-### Changes:
-* No Border
-* Set Proper BgColor
-* Set Proper Paddings
-* Set CornerRadius 
-* Set Calibri FontFamily
-
-Forked from: https://github.com/deanchalk/UWPChipsControl
----
-
 ## How to use in a UWP app
 If you want to include this control in an app, you can look at the sample project for guidance, but essentially the control has the following bindable properties:
+
+### Xaml:
+
+`xmlns:chipsControl="using:Yazdipour.UWP.Chips"`
+
+    <chipsControl:Chips AvailableChips="{x:Bind AvailableOptions}" 
+                        SelectedChips="{x:Bind SelectedOptions, Mode=TwoWay}"
+                        SelectorStyle="{x:Bind SelectorStyle, Mode=OneWay}"/>
 
 ### SelectorStyle (`ChipsControl.ChipsSelectorStyle`)
 
@@ -43,3 +42,5 @@ This property is an enumerable of string values (`IEnumerable<string>`) that rep
 
 
 ![Image of ChipControl in app](./docs/images/screenshot.gif)
+
+### Forked from: https://github.com/deanchalk/UWPChipsControl
