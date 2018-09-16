@@ -2,7 +2,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Yazdipour.UWP.Chips.svg?style=plastic)](https://www.nuget.org/packages/Yazdipour.UWP.Chips)
 
-![ChipControl](./docs/images/screenshot.png)
+![ChipControl](https://raw.githubusercontent.com/yazdipour/UWPChipsX/master/docs/images/screenshot.png)
 ![ChipControl-dark](./docs/images/screenshot-dark.png)
 
 ## How to use in a UWP app
@@ -12,9 +12,18 @@ If you want to include this control in an app, you can look at the sample projec
 
 `xmlns:chipsControl="using:Yazdipour.UWP.Chips"`
 
+## Single Chip
+    <chipsControl:Chip Content="Tag2"
+                       CloseButtonVisiblity="Collapsed"
+                       ChipDelete="Chip_ChipDelete"
+                       HorizontalAlignment="Left"/>
+
+## Chips Collection
+
     <chipsControl:Chips AvailableChips="{x:Bind AvailableOptions}" 
                         SelectedChips="{x:Bind SelectedOptions, Mode=TwoWay}"
-                        SelectorStyle="{x:Bind SelectorStyle, Mode=OneWay}"/>
+                        SelectorStyle="{x:Bind SelectorStyle, Mode=OneWay}"
+                        InputVisiblity="Visible"/>
 
 ### SelectorStyle (`ChipsControl.ChipsSelectorStyle`)
 

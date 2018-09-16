@@ -4,8 +4,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace Yazdipour.UWP.Chips
+namespace UWPChipsX
 {
+    public enum ChipsSelectorStyle { AutoSuggest, Selector }
     [TemplatePart(Name = ItemsControlName, Type = typeof(ItemsControl))]
     [TemplatePart(Name = SuggestControlName, Type = typeof(AutoSuggestBox))]
     [TemplatePart(Name = SelectionsControlName, Type = typeof(Selector))]
@@ -19,10 +20,7 @@ namespace Yazdipour.UWP.Chips
         private Selector _selectionsList;
         private AutoSuggestBox _suggestBox;
 
-        public Chips()
-        {
-            DefaultStyleKey = typeof(Chips);
-        }
+        public Chips() => DefaultStyleKey = typeof(Chips);
 
         public static DependencyProperty SelectorStyleProperty { get; } =
             DependencyProperty.Register("SelectorStyle", typeof(ChipsSelectorStyle), typeof(Chips),
@@ -37,11 +35,21 @@ namespace Yazdipour.UWP.Chips
             DependencyProperty.Register("AvailableChips", typeof(IEnumerable<string>), typeof(Chips),
                 new PropertyMetadata(Enumerable.Empty<string>(), OnAvailableChipsPropertyChanged));
 
+        public static DependencyProperty InputVisiblityProperty { get; } =
+            DependencyProperty.Register("InputVisiblity", typeof(Visibility), typeof(Chips),
+                new PropertyMetadata(defaultValue: Visibility.Visible,
+                    propertyChangedCallback: OnInputVisiblityPropertyChanged));
 
         public ChipsSelectorStyle SelectorStyle
         {
-            get => (ChipsSelectorStyle) GetValue(SelectorStyleProperty);
+            get => (ChipsSelectorStyle)GetValue(SelectorStyleProperty);
             set => SetValue(SelectorStyleProperty, value);
+        }
+
+        public Visibility InputVisiblity
+        {
+            get => (Visibility)GetValue(InputVisiblityProperty);
+            set => SetValue(InputVisiblityProperty, value);
         }
 
         public IEnumerable<string> SelectedChips
@@ -64,7 +72,7 @@ namespace Yazdipour.UWP.Chips
                 return;
             if (!(e.NewValue is ChipsSelectorStyle))
                 return;
-            var style = (ChipsSelectorStyle) e.NewValue;
+            var style = (ChipsSelectorStyle)e.NewValue;
             chips._suggestBox.Visibility = style == ChipsSelectorStyle.AutoSuggest ? Visibility.Visible : Visibility.Collapsed;
             chips._selectionsList.Visibility = style == ChipsSelectorStyle.Selector ? Visibility.Visible : Visibility.Collapsed;
         }
@@ -75,18 +83,19 @@ namespace Yazdipour.UWP.Chips
             _itemsControl = GetTemplateChild(ItemsControlName) as ItemsControl;
             _suggestBox = GetTemplateChild(SuggestControlName) as AutoSuggestBox;
             _selectionsList = GetTemplateChild(SelectionsControlName) as Selector;
-            if (_itemsControl == null || _suggestBox == null || _selectionsList == null)
-                return;
-            _suggestBox.Visibility = SelectorStyle == ChipsSelectorStyle.AutoSuggest
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            if (_itemsControl == null || _suggestBox == null || _selectionsList == null) return;
             _suggestBox.TextChanged += OnSuggestBoxTextChanged;
             _suggestBox.QuerySubmitted += OnSuggestBoxQuerySubmitted;
             _suggestBox.GotFocus += OnGotFocus;
             _selectionsList.SelectionChanged += OnSelectedItemChanged;
-            _selectionsList.Visibility = SelectorStyle == ChipsSelectorStyle.Selector
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+
+            if (InputVisiblity == Visibility.Collapsed)
+                _selectionsList.Visibility = _suggestBox.Visibility = Visibility.Collapsed;
+            else
+            {
+                _selectionsList.Visibility = SelectorStyle == ChipsSelectorStyle.Selector ? Visibility.Visible : Visibility.Collapsed;
+                _suggestBox.Visibility = SelectorStyle == ChipsSelectorStyle.AutoSuggest ? Visibility.Visible : Visibility.Collapsed;
+            }
             RecreateGrid();
         }
 
@@ -108,24 +117,19 @@ namespace Yazdipour.UWP.Chips
             chip.ChipDelete += OnChipDelete;
             _itemsControl.Items?.Insert(2, chip);
             chip.ChipDelete += OnChipDelete;
-            SelectedChips = new[] {newItem}.Concat(SelectedChips);
+            SelectedChips = new[] { newItem }.Concat(SelectedChips);
             _selectionsList.ItemsSource = AvailableChips.Where(c => !SelectedChips.Contains(c));
         }
 
         private void OnSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (string.IsNullOrWhiteSpace(args.QueryText))
-                return;
-            if (SelectedChips.Contains(args.QueryText))
-                return;
-            var chip = new Chip
-            {
-                Content = args.QueryText
-            };
+            if (string.IsNullOrWhiteSpace(args.QueryText)) return;
+            if (SelectedChips.Contains(args.QueryText)) return;
+            var chip = new Chip { Content = args.QueryText };
             chip.ChipDelete += OnChipDelete;
             _itemsControl.Items?.Insert(2, chip);
             chip.ChipDelete += OnChipDelete;
-            SelectedChips = new[] {args.QueryText}.Concat(SelectedChips);
+            SelectedChips = new[] { args.QueryText }.Concat(SelectedChips);
         }
 
         private void OnChipDelete(object sender, Chip e)
@@ -148,8 +152,7 @@ namespace Yazdipour.UWP.Chips
             if (_itemsControl == null || SelectedChips == null || _suggestBox == null || _selectionsList == null)
                 return;
             var chips = _itemsControl.Items?.OfType<Chip>().ToList() ?? new List<Chip>();
-            foreach (var chip in chips)
-                _itemsControl.Items?.Remove(chip);
+            foreach (var chip in chips) _itemsControl.Items?.Remove(chip);
             foreach (var text in SelectedChips)
             {
                 var chip = new Chip
@@ -159,7 +162,6 @@ namespace Yazdipour.UWP.Chips
                 _itemsControl.Items?.Add(chip);
                 chip.ChipDelete += OnChipDelete;
             }
-
             _suggestBox.ItemsSource = AvailableChips.Where(c => !SelectedChips.Contains(c));
             _selectionsList.ItemsSource = AvailableChips.Where(c => !SelectedChips.Contains(c));
         }
@@ -175,11 +177,13 @@ namespace Yazdipour.UWP.Chips
             var chips = d as Chips;
             chips?.RecreateGrid();
         }
-    }
 
-    public enum ChipsSelectorStyle
-    {
-        AutoSuggest,
-        Selector
+        private static void OnInputVisiblityPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is Chips chips)) return;
+            if (chips._selectionsList == null || chips._suggestBox == null) return;
+            if (!(e.NewValue is Visibility)) return;
+            if ((Visibility)e.NewValue == Visibility.Collapsed) chips._suggestBox.Visibility = chips._selectionsList.Visibility = Visibility.Collapsed;
+        }
     }
 }

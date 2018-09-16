@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Yazdipour.UWP.Chips;
+using UWPChipsX;
 
 namespace Sample
 {
@@ -70,6 +70,11 @@ namespace Sample
         private void OnSelectorChecked(object sender, RoutedEventArgs e)
         {
             SelectorStyle = ChipsSelectorStyle.Selector;
+        }
+
+        private void Chip_ChipDelete(object sender, Chip e)
+        {
+
         }
     }
 }

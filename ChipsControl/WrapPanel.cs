@@ -4,7 +4,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Yazdipour.UWP.Chips
+namespace UWPChipsX
 {
     public sealed class WrapPanel : Panel
     {

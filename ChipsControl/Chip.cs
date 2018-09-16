@@ -3,7 +3,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Yazdipour.UWP.Chips
+namespace UWPChipsX
 {
     [TemplatePart(Name = CanceButtonName, Type = typeof(Button))]
     public sealed class Chip : ContentControl
@@ -11,10 +11,7 @@ namespace Yazdipour.UWP.Chips
         private const string CanceButtonName = "PART_CancelButton";
         private Button _button;
 
-        public Chip()
-        {
-            DefaultStyleKey = typeof(Chip);
-        }
+        public Chip() => DefaultStyleKey = typeof(Chip);
 
         public event EventHandler<Chip> ChipDelete;
 
@@ -29,6 +26,24 @@ namespace Yazdipour.UWP.Chips
             _button.PointerExited += (o, e) =>
                 Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
             _button.Click += (o, e) => ChipDelete?.Invoke(this, this);
+            _button.Visibility = CloseButtonVisiblity;
+        }
+        public static DependencyProperty CloseButtonVisiblityProperty { get; } =
+            DependencyProperty.Register("CloseButtonVisiblity", typeof(Visibility), typeof(Chip),
+                new PropertyMetadata(defaultValue: Visibility.Visible,
+                    propertyChangedCallback: OnCloseButtonVisiblityPropertyChanged));
+
+        public Visibility CloseButtonVisiblity
+        {
+            get => (Visibility)GetValue(CloseButtonVisiblityProperty);
+            set => SetValue(CloseButtonVisiblityProperty, value);
+        }
+        private static void OnCloseButtonVisiblityPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is Chip chip)) return;
+            if (!(e.NewValue is Visibility)) return;
+            if (chip._button == null) return;
+            chip._button.Visibility = (Visibility)e.NewValue;
         }
     }
 }

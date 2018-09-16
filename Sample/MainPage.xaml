@@ -5,29 +5,43 @@
     xmlns:local="using:Sample"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:chipsControl="using:Yazdipour.UWP.Chips"
+    xmlns:chipsControl="using:UWPChipsX"
+    RequestedTheme="Dark"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <chipsControl:Chips AvailableChips="{x:Bind AvailableOptions}" 
-                            SelectedChips="{x:Bind SelectedOptions, Mode=TwoWay}" Margin="20" 
-                            SelectorStyle="{x:Bind SelectorStyle, Mode=OneWay}"/>
+        <StackPanel Orientation="Horizontal" Margin="0 4">
+            <chipsControl:Chip Content="Tag1"
+                               ChipDelete="Chip_ChipDelete"
+                               HorizontalAlignment="Left"/>
 
-        <StackPanel Grid.Row="1" Margin="20,0">
+            <chipsControl:Chip Content="Tag2"
+                               CloseButtonVisiblity="Collapsed"
+                               ChipDelete="Chip_ChipDelete"
+                               HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <chipsControl:Chips Grid.Row="1"
+                            AvailableChips="{x:Bind AvailableOptions}" 
+                            SelectedChips="{x:Bind SelectedOptions, Mode=TwoWay}"
+                            SelectorStyle="{x:Bind SelectorStyle, Mode=OneWay}"
+                            InputVisiblity="Visible"/>
+
+        <StackPanel Grid.Row="2">
             <TextBlock Text="Chip selector style" FontWeight="Bold"/>
             <RadioButton x:Name="AutoSuggestRadio" Content="Auto-Suggest" Checked="OnAutoSuggestChecked" IsChecked="True"/>
             <RadioButton x:Name="SelectorRadio" Content="Selector" Checked="OnSelectorChecked"/>
         </StackPanel>
-
-        <TextBlock Margin="20,10,0,0" Grid.Row="2" Text="Selected chips" FontWeight="Bold"/>
-        <ItemsControl Margin="20,0,0,0" Grid.Row="3" ItemsSource="{x:Bind SelectedOptions, Mode=OneWay}"/>
-
+        <TextBlock Grid.Row="3" Text="Selected chips" FontWeight="Bold"/>
+        <ItemsControl Grid.Row="4" ItemsSource="{x:Bind SelectedOptions, Mode=OneWay}"/>
     </Grid>
 </Page>
 
