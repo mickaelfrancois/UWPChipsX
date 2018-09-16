@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Yazdipour.UWP.Chips</id>
-    <version>1.0.2</version>
+    <id>UWPChipsX</id>
+    <version>1.0.3</version>
     <title>UWP Chips Control</title>
     <authors>Shahriar Yazdipour</authors>
     <owners>Shahriar Yazdipour</owners>
@@ -11,13 +11,13 @@
     <iconUrl>https://github.com/yazdipour/UWPChipsX/raw/master/docs/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A control library that can be added to any UWP project. There is a single control that allows the developer to add a chips functionality to their UWP application. </description>
-    <releaseNotes>.</releaseNotes>
+    <releaseNotes>Ctrl on Visibility of CloseBtn and Input</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>UWP UAP XAML Control Chips</tags>
   </metadata>
   <files>
     <file src="bin\Release\UWPChipsX.pri" target="lib\uap10.0"/>
-    <file src="bin\Release\UWPChipsX.xr.xml" target="lib\uap10.0\Yazdipour.UWP.Chips"/>
+    <file src="bin\Release\UWPChipsX.xr.xml" target="lib\uap10.0\UWPChipsX"/>
     <file src="bin\Release\UWPChipsX.winmd" target="lib\uap10.0"/>
     <file src="bin\Release\UWPChipsX.pdb" target="lib\uap10.0"/>
     <file src="bin\Release\Themes\Generic.xbf" target="lib\uap10.0\UWPChipsX\Themes"/>
