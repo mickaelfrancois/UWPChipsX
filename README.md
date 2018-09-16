@@ -1,6 +1,6 @@
 # UWP Chips Control
 
-[![NuGet](https://img.shields.io/nuget/v/Yazdipour.UWP.Chips.svg?style=plastic)](https://www.nuget.org/packages/Yazdipour.UWP.Chips)
+[![NuGet](https://img.shields.io/nuget/v/UWPChipsX.svg?style=plastic)](https://www.nuget.org/packages/UWPChipsX/)
 
 ![ChipControl](https://raw.githubusercontent.com/yazdipour/UWPChipsX/master/docs/images/screenshot.png)
 ![ChipControl-dark](./docs/images/screenshot-dark.png)
